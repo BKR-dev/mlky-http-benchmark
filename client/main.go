@@ -1,4 +1,4 @@
-package main
+package clnt
 
 import (
 	"encoding/json"
