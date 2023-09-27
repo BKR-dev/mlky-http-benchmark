@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	portChi = "5443"
+	portChi = "5445"
 )
 
 func healthCheckEndpointChi(w http.ResponseWriter, r *http.Request) {
@@ -25,12 +25,12 @@ func healthCheckEndpointChi(w http.ResponseWriter, r *http.Request) {
 	w.Write(responseJson)
 
 	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
+	fmt.Printf("the route took %s long for the chi\n", totalTime)
 }
 
 func StartChiServer() {
 	r := chi.NewRouter()
-	r.Get("/healthCheck", healthCheckEndpointChi)
+	r.Get("/healthcheckchi", healthCheckEndpointChi)
 	http.ListenAndServe(":"+portChi, nil)
-	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portChi)
+	fmt.Printf("Chi Listens on Port %s with provided endpoint /healthcheckchi\n", portChi)
 }

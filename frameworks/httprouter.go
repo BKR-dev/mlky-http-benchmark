@@ -28,13 +28,12 @@ func healthCheck(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	w.Write(responseJson)
 
 	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
+	fmt.Printf("the route took %s long for httprouter\n", totalTime)
 }
 
 func StartHttprouterServer() {
 	hr := httprouter.New()
-	hr.GET("/healthcheck", healthCheck)
-
+	hr.GET("/healthcheckhr", healthCheck)
+	fmt.Printf("Httprouter started at port %s, with endpoint /healthcheckhr\n", portHttpRouter)
 	log.Fatal(http.ListenAndServe(":"+portHttpRouter, hr))
-	fmt.Printf("Httprouter started at port %s, with endpoint /healthcheck\n", portHttpRouter)
 }

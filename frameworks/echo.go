@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 	"net/http"
 	"time"
 )
@@ -21,19 +20,17 @@ func healthCheckEndpointEcho(c echo.Context) error {
 	responseJson, _ := json.Marshal(responseBody)
 
 	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
+	fmt.Printf("the route took %s long for echo\n", totalTime)
 	return c.String(http.StatusOK, string(responseJson))
 }
 
 func StartEchoServer() {
 	// echo code goes here
 	e := echo.New()
-
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
-
-	e.GET("/healthCheck", healthCheckEndpointEcho)
-	e.Logger.Fatal(e.Start(":" + portEcho))
-
-	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portEcho)
+	e.HideBanner = true
+	e.GET("/healthcheckec", healthCheckEndpointEcho)
+	if err := e.Start(":" + portEcho); err != nil {
+		fmt.Printf("error starting echo server: %v", err)
+	}
+	fmt.Printf("Echo Listens on Port %s with provided endpoint /healthcheckec\n", portEcho)
 }

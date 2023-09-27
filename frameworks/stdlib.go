@@ -24,11 +24,11 @@ func healthCheckEndpointStdLib(w http.ResponseWriter, r *http.Request) {
 	w.Write(responseJson)
 
 	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
+	fmt.Printf("healthcheck route took %s long for the standard lib\n", totalTime)
 }
 
 func StartStandardServer() {
-	http.HandleFunc("/healthCheck", healthCheckEndpointStdLib)
+	http.HandleFunc("/healthcheck", healthCheckEndpointStdLib)
+	fmt.Printf("Standard lib Listens on Port %s with provided endpoint /healthcheck\n", portStd)
 	http.ListenAndServe(":"+portStd, nil)
-	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portStd)
 }
