@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	portFiber = "7443"
+	portFiber = "9903"
 )
 
 func healthCheckEndpointFiber(c *fiber.Ctx) error {

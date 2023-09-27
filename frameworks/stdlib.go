@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	portStd = "5443"
+	portStd = "9907"
 )
 
 func healthCheckEndpointStdLib(w http.ResponseWriter, r *http.Request) {

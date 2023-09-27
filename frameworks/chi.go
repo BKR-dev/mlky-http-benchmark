@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	portChi = "5445"
+	portChi = "9901"
 )
 
 func healthCheckEndpointChi(w http.ResponseWriter, r *http.Request) {

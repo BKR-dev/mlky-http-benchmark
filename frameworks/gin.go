@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	portGin = "8443"
+	portGin = "9904"
 )
 
 func healthCheckEndpointGin(c *gin.Context) {

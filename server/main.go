@@ -32,5 +32,6 @@ func main() {
 		go server()
 	}
 	fmt.Println("All servers started")
-	for {}
+	for {
+	}
 }

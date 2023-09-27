@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	portMux = "5444"
+	portMux = "9906"
 )
 
 func healthCheckEndpointMux(w http.ResponseWriter, r *http.Request) {

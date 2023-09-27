@@ -9,7 +9,7 @@ import (
 )
 
 var (
-	portEcho = "3443"
+	portEcho = "9902"
 )
 
 func healthCheckEndpointEcho(c echo.Context) error {
