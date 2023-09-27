@@ -1,19 +1,23 @@
 package frameworks
 
 import (
-	"time"
-	"net/http"
 	"encoding/json"
 	"fmt"
+	"net/http"
+	"time"
 )
 
-func HealthCheckEndpoint(w http.ResponseWriter, r *http.Request){
+var (
+	portStd = "5443"
+)
+
+func healthCheckEndpointStdLib(w http.ResponseWriter, r *http.Request) {
 	startTime := time.Now()
-	responseBody := map[string]string {
-		"message":"just some JSON",
+	responseBody := map[string]string{
+		"message": "just some JSON",
 	}
 	responseJson, err := json.Marshal(responseBody)
-	if err!= nil {
+	if err != nil {
 		http.Error(w, "failed to marshal JSON", http.StatusInternalServerError)
 	}
 	w.WriteHeader(http.StatusOK)
@@ -23,7 +27,8 @@ func HealthCheckEndpoint(w http.ResponseWriter, r *http.Request){
 	fmt.Printf("the route took %s long for the standard lib", totalTime)
 }
 
-func StartStandardServer(){
-	http.HandleFunc("/healthCheck", HealthCheckEndpoint)
-	http.ListenAndServe(":9443", nil)
+func StartStandardServer() {
+	http.HandleFunc("/healthCheck", healthCheckEndpointStdLib)
+	http.ListenAndServe(":"+portStd, nil)
+	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portStd)
 }
