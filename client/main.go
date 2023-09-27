@@ -19,4 +19,5 @@ func main() {
 	frameworks.StartEchoServer()
 	frameworks.StartStandardServer()
 	frameworks.StartGinServer()
+	frameworks.StartHttprouterServer()
 }

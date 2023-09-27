@@ -18,6 +18,7 @@ require (
 	github.com/google/uuid v1.3.1 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
+	github.com/julienschmidt/httprouter v1.3.0 // indirect
 	github.com/klauspost/compress v1.17.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
 	github.com/labstack/echo/v4 v4.11.1 // indirect
