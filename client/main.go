@@ -1,8 +1,8 @@
 package main
 
 import (
-	"frameworks"
-	"sync"
+	"fmt"
+	"local/frameworks"
 )
 
 // /////////////////////////////////////
@@ -17,18 +17,20 @@ func QueryServers() {
 }
 
 func main() {
-	startAllServers()
-}
-
-func startAllServers() {
-	var wg sync.WaitGroup
-	for i := 1; i < 2; i++ {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			frameworks.StartEchoServer()
-		}()
+	allServers := map[string]func(){
+		"echo":       frameworks.StartEchoServer,
+		"httprouter": frameworks.StartHttprouterServer,
+		"gin":        frameworks.StartGinServer,
+		"fiber":      frameworks.StartFiberServer,
+		"chi":        frameworks.StartChiServer,
+		"gorilla":    frameworks.StartGorillaMuxServer,
+		"standard":   frameworks.StartStandardServer,
 	}
 
-	wg.Wait()
+	for name, server := range allServers {
+		fmt.Printf("starting %s", name)
+		go server()
+	}
+	fmt.Println("All servers started")
+	for {}
 }

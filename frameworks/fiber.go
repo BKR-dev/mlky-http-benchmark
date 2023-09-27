@@ -19,14 +19,14 @@ func healthCheckEndpointFiber(c *fiber.Ctx) error {
 	responseJson, _ := json.Marshal(responseBody)
 
 	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
+	fmt.Printf("the route took %s long for fiber\n", totalTime)
 	return c.SendString(string(responseJson))
 }
 
 func StartFiberServer() {
 	// echo code goes here
 	app := fiber.New()
-	app.Get("/healthcheck", healthCheckEndpointFiber)
+	app.Get("/healthcheckfi", healthCheckEndpointFiber)
 	app.Listen(":" + portFiber)
-	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portFiber)
+	fmt.Printf("Fiber Listens on Port %s with provided endpoint /healthcheckfi\n", portFiber)
 }

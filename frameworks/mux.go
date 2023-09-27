@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	portMux = "5443"
+	portMux = "5444"
 )
 
 func healthCheckEndpointMux(w http.ResponseWriter, r *http.Request) {
@@ -24,11 +24,11 @@ func healthCheckEndpointMux(w http.ResponseWriter, r *http.Request) {
 	w.Write(responseJson)
 
 	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
+	fmt.Printf("the route took %s long for mux\n", totalTime)
 }
 
 func StartGorillaMuxServer() {
-	http.HandleFunc("/healthCheck", healthCheckEndpointMux)
+	http.HandleFunc("/healthcheckmux", healthCheckEndpointMux)
 	http.ListenAndServe(":"+portMux, nil)
-	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portMux)
+	fmt.Printf("Standard lib mux servers Listens on Port %s with provided endpoint /healthcheckmux\n", portMux)
 }

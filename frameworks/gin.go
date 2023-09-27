@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"net/http"
 	"time"
 )
 
@@ -23,13 +22,12 @@ func healthCheckEndpointGin(c *gin.Context) {
 	}
 	c.JSON(200, gin.H{"message": responseJson})
 	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
+	fmt.Printf("the route took %s long for gin\n", totalTime)
 }
 
 func StartGinServer() {
 	r := gin.Default()
-	r.GET("/healthCheck", healthCheckEndpointGin)
-	r.Run()
-	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portGin)
-	http.ListenAndServe(":"+portGin, r)
+	r.GET("/healthcheckgin", healthCheckEndpointGin)
+	r.Run(":" + portGin)
+	fmt.Printf("Gin Listens on Port %s with provided endpoint /healthcheckgin\n", portGin)
 }
