@@ -27,9 +27,10 @@ func healthCheckEndpointGin(c *gin.Context) {
 }
 
 func StartGinServer() {
+	fmt.Printf("Gin Servers Listens on Port %s with provided endpoint /healthCheck\n", portGin)
+	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 	r.GET("/healthCheck", healthCheckEndpointGin)
 	r.Run()
-	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portGin)
 	http.ListenAndServe(":"+portGin, r)
 }

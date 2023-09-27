@@ -22,13 +22,22 @@ func main() {
 
 func startAllServers() {
 	var wg sync.WaitGroup
-	for i := 1; i < 2; i++ {
+	serverSlice := []func(){
+		frameworks.StartChiServer,
+		frameworks.StartEchoServer,
+		frameworks.StartFiberServer,
+		frameworks.StartGinServer,
+		frameworks.StartGorillaMuxServer,
+		frameworks.StartHttprouterServer,
+	}
+	// counter for each server (not too nice)
+	for i := 1; i < len(serverSlice); i++ {
 		wg.Add(1)
+		i := i
 		go func() {
 			defer wg.Done()
-			frameworks.StartEchoServer()
+			serverSlice[i]()
 		}()
 	}
-
 	wg.Wait()
 }
