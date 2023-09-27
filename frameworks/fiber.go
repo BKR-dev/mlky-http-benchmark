@@ -25,7 +25,9 @@ func healthCheckEndpointFiber(c *fiber.Ctx) error {
 
 func StartFiberServer() {
 	// echo code goes here
-	app := fiber.New()
+	app := fiber.New(fiber.Config{
+		DisableStartupMessage: true,
+	})
 	app.Get("/healthcheck", healthCheckEndpointFiber)
 	app.Listen(":" + portFiber)
 	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portFiber)

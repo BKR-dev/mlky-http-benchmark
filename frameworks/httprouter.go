@@ -32,8 +32,8 @@ func healthCheck(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 }
 
 func StartHttprouterServer() {
+	fmt.Printf("Httprouter started at port %s, with provided endpoint /healthcheck\n", portHttpRouter)
 	hr := httprouter.New()
 	hr.GET("/healthcheck", healthCheck)
-	fmt.Printf("Httprouter started at port %s, with provided endpoint /healthcheck\n", portHttpRouter)
 	log.Fatal(http.ListenAndServe(":"+portHttpRouter, hr))
 }

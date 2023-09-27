@@ -28,6 +28,7 @@ func StartEchoServer() {
 	fmt.Printf("Echo Server Listens on Port %s with provided endpoint /healthCheck\n", portEcho)
 	e := echo.New()
 	e.HideBanner = true
+	e.HidePort = true
 	e.GET("/healthCheck", healthCheckEndpointEcho)
 	e.Start(":" + portEcho)
 }
