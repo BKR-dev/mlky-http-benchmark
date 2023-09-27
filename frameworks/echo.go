@@ -28,12 +28,9 @@ func healthCheckEndpointEcho(c echo.Context) error {
 func StartEchoServer() {
 	// echo code goes here
 	e := echo.New()
-
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
-
 	e.GET("/healthCheck", healthCheckEndpointEcho)
-	e.Logger.Fatal(e.Start(":" + portEcho))
-
 	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portEcho)
+	e.Logger.Fatal(e.Start(":" + portEcho))
 }

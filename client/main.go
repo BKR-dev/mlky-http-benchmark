@@ -2,6 +2,7 @@ package main
 
 import (
 	"frameworks"
+	"sync"
 )
 
 // /////////////////////////////////////
@@ -16,10 +17,14 @@ func QueryServers() {
 }
 
 func main() {
-	frameworks.StartChiServer()
-	frameworks.StartEchoServer()
-	frameworks.StartFiberServer()
-	frameworks.StartGinServer()
-	frameworks.StartHttprouterServer()
-	frameworks.StartStandardServer()
+
+}
+
+func startAllServers() {
+	var wg sync.WaitGroup
+	wg.Add(frameworks.StartChiServer())
+	wg.Add(frameworks.StartFiberServer())
+	defer wg.Done()
+	wg.Wait()
+
 }

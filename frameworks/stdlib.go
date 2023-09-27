@@ -29,6 +29,6 @@ func healthCheckEndpointStdLib(w http.ResponseWriter, r *http.Request) {
 
 func StartStandardServer() {
 	http.HandleFunc("/healthCheck", healthCheckEndpointStdLib)
-	http.ListenAndServe(":"+portStd, nil)
 	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portStd)
+	http.ListenAndServe(":"+portStd, nil)
 }
