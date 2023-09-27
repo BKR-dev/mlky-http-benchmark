@@ -16,8 +16,10 @@ func QueryServers() {
 }
 
 func main() {
+	frameworks.StartChiServer()
 	frameworks.StartEchoServer()
-	frameworks.StartStandardServer()
+	frameworks.StartFiberServer()
 	frameworks.StartGinServer()
 	frameworks.StartHttprouterServer()
+	frameworks.StartStandardServer()
 }
