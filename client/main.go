@@ -17,14 +17,18 @@ func QueryServers() {
 }
 
 func main() {
-
+	startAllServers()
 }
 
 func startAllServers() {
 	var wg sync.WaitGroup
-	wg.Add(frameworks.StartChiServer())
-	wg.Add(frameworks.StartFiberServer())
-	defer wg.Done()
-	wg.Wait()
+	for i := 1; i < 2; i++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			frameworks.StartEchoServer()
+		}()
+	}
 
+	wg.Wait()
 }

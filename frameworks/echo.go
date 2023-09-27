@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
 	"net/http"
 	"time"
 )
@@ -28,9 +27,8 @@ func healthCheckEndpointEcho(c echo.Context) error {
 func StartEchoServer() {
 	// echo code goes here
 	e := echo.New()
-	e.Use(middleware.Logger())
-	e.Use(middleware.Recover())
+	e.HideBanner = true
 	e.GET("/healthCheck", healthCheckEndpointEcho)
 	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portEcho)
-	e.Logger.Fatal(e.Start(":" + portEcho))
+	e.Start(":" + portEcho)
 }
