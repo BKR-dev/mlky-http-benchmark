@@ -28,6 +28,7 @@ func StartEchoServer() {
 	// echo code goes here
 	e := echo.New()
 	e.HideBanner = true
+	e.HidePort = true
 	e.GET("/healthcheckec", healthCheckEndpointEcho)
 	if err := e.Start(":" + portEcho); err != nil {
 		fmt.Printf("error starting echo server: %v", err)

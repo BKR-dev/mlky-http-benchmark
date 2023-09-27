@@ -26,6 +26,7 @@ func healthCheckEndpointGin(c *gin.Context) {
 }
 
 func StartGinServer() {
+	gin.SetMode(gin.ReleaseMode)
 	r := gin.Default()
 	r.GET("/healthcheckgin", healthCheckEndpointGin)
 	r.Run(":" + portGin)
