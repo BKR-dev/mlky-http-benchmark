@@ -34,5 +34,5 @@ func StartChiServer() {
 	r := chi.NewRouter()
 	r.Get("/healthCheck", healthCheckEndpointChi)
 	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portChi)
-	http.ListenAndServe(":"+portChi, nil)
+	http.ListenAndServe(":"+portChi, r)
 }
