@@ -29,6 +29,7 @@ func startAllServers() {
 		frameworks.StartGinServer,
 		frameworks.StartGorillaMuxServer,
 		frameworks.StartHttprouterServer,
+		frameworks.StartStandardServer,
 	}
 	// counter for each server (not too nice)
 	for i := 1; i < len(serverSlice); i++ {

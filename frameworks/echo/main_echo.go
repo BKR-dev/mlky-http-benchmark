@@ -1,4 +1,6 @@
-package frameworks
+//go:build echo
+
+package echo
 
 import (
 	"encoding/json"

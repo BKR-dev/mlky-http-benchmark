@@ -1,4 +1,6 @@
-package frameworks
+//go:build httprouter
+
+package httprouter
 
 import (
 	"encoding/json"

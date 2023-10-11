@@ -1,18 +1,19 @@
-package frameworks
+//go:build stdlib
+
+package stdlib
 
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/go-chi/chi/v5"
 	"net/http"
 	"time"
 )
 
 var (
-	portChi = "5443"
+	portStd = "5443"
 )
 
-func healthCheckEndpointChi(w http.ResponseWriter, r *http.Request) {
+func healthCheckEndpointStdLib(w http.ResponseWriter, r *http.Request) {
 	startTime := time.Now()
 	responseBody := map[string]string{
 		"message": "just some JSON",
@@ -28,9 +29,8 @@ func healthCheckEndpointChi(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("the route took %s long for the standard lib", totalTime)
 }
 
-func StartChiServer() {
-	r := chi.NewRouter()
-	r.Get("/healthCheck", healthCheckEndpointChi)
-	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portChi)
-	http.ListenAndServe(":"+portChi, nil)
+func StartStandardServer() {
+	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portStd)
+	http.HandleFunc("/healthCheck", healthCheckEndpointStdLib)
+	http.ListenAndServe(":"+portStd, nil)
 }

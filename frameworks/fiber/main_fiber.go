@@ -1,4 +1,6 @@
-package frameworks
+//go:build fiber
+
+package fiber
 
 import (
 	"encoding/json"

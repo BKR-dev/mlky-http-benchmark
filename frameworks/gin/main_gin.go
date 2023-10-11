@@ -1,4 +1,6 @@
-package frameworks
+//go:build gin
+
+package gin
 
 import (
 	"encoding/json"

@@ -1,8 +1,11 @@
-package frameworks
+//go:build gorillamux
+
+package gorillamux
 
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gorilla/mux"
 	"net/http"
 	"time"
 )
@@ -28,7 +31,14 @@ func healthCheckEndpointMux(w http.ResponseWriter, r *http.Request) {
 }
 
 func StartGorillaMuxServer() {
-	http.HandleFunc("/healthCheck", healthCheckEndpointMux)
-	http.ListenAndServe(":"+portMux, nil)
+	r := mux.NewRouter()
+	r.HandleFunc("/healthCheck", healthCheckEndpointMux)
+	srv := &http.Server{
+		Hanlder:      r,
+		Addr:         "127.0.0.1:" + portMux,
+		WriteTimeout: 5 * time.Second,
+		ReadTimeout:  5 * time.Second,
+	}
 	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portMux)
+	srv.ListenAndServe()
 }
