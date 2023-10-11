@@ -18,5 +18,5 @@ done
 for f in main_*
 do
 	ROUTER_NAME=$(echo "$f" | cut -d"_" -f2 | cut -d"." -f1)
-	source $ROUTER_NAME-router
+	parallel ::: ./$ROUTER_NAME-router
 done
