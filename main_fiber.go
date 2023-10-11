@@ -1,6 +1,6 @@
 //go:build fiber
 
-package fiber
+package main
 
 import (
 	"encoding/json"
@@ -12,6 +12,10 @@ import (
 var (
 	portFiber = "7443"
 )
+
+func init() {
+	StartFiberServer()
+}
 
 func healthCheckEndpointFiber(c *fiber.Ctx) error {
 	startTime := time.Now()

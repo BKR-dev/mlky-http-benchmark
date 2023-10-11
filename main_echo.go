@@ -1,6 +1,6 @@
 //go:build echo
 
-package echo
+package main
 
 import (
 	"encoding/json"
@@ -14,6 +14,10 @@ var (
 	portEcho = "3443"
 )
 
+func init() {
+	startEchoServer()
+}
+
 func healthCheckEndpointEcho(c echo.Context) error {
 	startTime := time.Now()
 	responseBody := map[string]string{
@@ -25,7 +29,7 @@ func healthCheckEndpointEcho(c echo.Context) error {
 	return c.String(http.StatusOK, string(responseJson))
 }
 
-func StartEchoServer() {
+func startEchoServer() {
 	// echo code goes here
 	fmt.Printf("Echo Server Listens on Port %s with provided endpoint /healthCheck\n", portEcho)
 	e := echo.New()

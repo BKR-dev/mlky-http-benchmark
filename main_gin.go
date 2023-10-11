@@ -1,6 +1,6 @@
 //go:build gin
 
-package gin
+package main
 
 import (
 	"encoding/json"
@@ -13,6 +13,10 @@ import (
 var (
 	portGin = "8443"
 )
+
+func init() {
+	StartGinServer()
+}
 
 func healthCheckEndpointGin(c *gin.Context) {
 	startTime := time.Now()

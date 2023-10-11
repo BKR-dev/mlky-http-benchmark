@@ -1,6 +1,6 @@
 //go:build stdlib
 
-package stdlib
+package main
 
 import (
 	"encoding/json"
@@ -12,6 +12,10 @@ import (
 var (
 	portStd = "5443"
 )
+
+func init() {
+	StartStandardServer()
+}
 
 func healthCheckEndpointStdLib(w http.ResponseWriter, r *http.Request) {
 	startTime := time.Now()

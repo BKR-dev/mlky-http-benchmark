@@ -14,6 +14,10 @@ var (
 	portChi = "5443"
 )
 
+func init() {
+	startChiServer()
+}
+
 func healthCheckEndpointChi(w http.ResponseWriter, r *http.Request) {
 	startTime := time.Now()
 	responseBody := map[string]string{
@@ -30,7 +34,7 @@ func healthCheckEndpointChi(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("the route took %s long for the standard lib", totalTime)
 }
 
-func StartChiServer() {
+func startChiServer() {
 	r := chi.NewRouter()
 	r.Get("/healthCheck", healthCheckEndpointChi)
 	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portChi)

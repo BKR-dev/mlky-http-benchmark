@@ -1,6 +1,6 @@
 //go:build gorillamux
 
-package gorillamux
+package main
 
 import (
 	"encoding/json"
@@ -13,6 +13,10 @@ import (
 var (
 	portMux = "5443"
 )
+
+func init() {
+	StartGorillaMuxServer()
+}
 
 func healthCheckEndpointMux(w http.ResponseWriter, r *http.Request) {
 	startTime := time.Now()

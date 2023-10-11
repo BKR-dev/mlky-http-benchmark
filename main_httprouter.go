@@ -1,6 +1,6 @@
 //go:build httprouter
 
-package httprouter
+package main
 
 import (
 	"encoding/json"
@@ -14,6 +14,10 @@ import (
 var (
 	portHttpRouter = "9000"
 )
+
+func init() {
+	StartHttprouterServer()
+}
 
 func healthCheck(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	startTime := time.Now()
