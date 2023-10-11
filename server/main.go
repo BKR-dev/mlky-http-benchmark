@@ -32,6 +32,8 @@ func main() {
 		go server()
 	}
 	fmt.Println("All servers started")
-	for {
-	}
+}
+
+func printName(firstName, lastName string) {
+	fmt.Println("Hello " + firstName + lastName)
 }
