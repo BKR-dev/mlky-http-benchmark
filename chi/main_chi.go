@@ -1,6 +1,6 @@
 //go:build chi
 
-package chi
+package main
 
 import (
 	"encoding/json"
