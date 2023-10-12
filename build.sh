@@ -24,7 +24,7 @@ done
 
 for ROUTER in "${binary_array[@]}"; do
 	printf "Starting $ROUTER in its own process...\n"
-	parallel -j 50 ::: ./$ROUTER 2> errors.log
+	parallel -j 50 ::: ./$ROUTER 
 done
 }
 
