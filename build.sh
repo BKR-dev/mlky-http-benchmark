@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #
+#set -x
 # check if stuff is already built, no need to do twice
 buildBinaries() {
 for f in main_*
@@ -23,7 +24,7 @@ done
 
 for ROUTER in "${binary_array[@]}"; do
 	printf "Starting $ROUTER in its own process...\n"
-	parallel ::: ./$ROUTER 
+	parallel -j 50 ::: ./$ROUTER 2> errors.log
 done
 }
 
