@@ -5,16 +5,24 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/arl/statsviz"
 	"github.com/go-chi/chi/v5"
 	"net/http"
 	"time"
+	"log"
 )
 
 var (
-	portChi = "5443"
+	portChi = "3000"
 )
 
 func init() {
+	mux := http.NewServeMux()
+	statsviz.Register(mux)
+
+	go func() {
+		log.Println(http.ListenAndServe("localhost:8080", mux))
+	}()
 	startChiServer()
 }
 
