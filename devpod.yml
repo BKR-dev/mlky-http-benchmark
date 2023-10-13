@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: internet-connect-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: internet-connect-pod
+  template:
+    metadata:
+      labels:
+        app: internet-connect-pod
+    spec:
+      containers:
+      - name: internet-connect-container
+        image: busybox
+        command: ["/bin/sh"]
+        args: ["-c", "while true; do sleep 36000; done"]
+
