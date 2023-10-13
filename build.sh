@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 #
-#set -x
-# check if stuff is already built, no need to do twice
 routerArray=()
 for e in main_*; do
 	ROUTER=$(echo "$e" | cut -d"_" -f2 | cut -d"." -f1)
@@ -26,7 +24,7 @@ printf "Done building all binaries.\n"
 startRouters() {
 printf "Starting all binaries via GNU parallel\n"
 for ROUTER in "${routerArray[@]}"; do
-	ROUTER_NAME=$r-router
+	ROUTER_NAME=$ROUTER-router
 	printf "Starting $ROUTER in its own process...\n"
 	parallel -j 50 ::: ./$ROUTER_NAME
 done
