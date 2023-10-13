@@ -2,12 +2,22 @@
 #
 #set -x
 # check if stuff is already built, no need to do twice
+routerArray=()
+for e in main_*; do
+	ROUTER=$(echo "$e" | cut -d"_" -f2 | cut -d"." -f1)
+	routerArray+=("$ROUTER")
+done
+
 buildBinaries() {
-for f in main_*
-do
-	ROUTER_NAME=$(echo "$f" | cut -d"_" -f2 | cut -d"." -f1)
-	printf "Building $ROUTER_NAME as $ROUTER_NAME-router\n"
-	go build -tags $ROUTER_NAME -o $ROUTER_NAME-router
+for ROUTER in "${routerArray[@]}"; do
+	ROUTER_NAME=$ROUTER-router
+# if is not binary or does not exist, build
+if [[ ! -x $ROUTER_NAME || ! -e $ROUTER_NAME ]]; then
+	printf "Building $ROUTER as $ROUTER_NAME\n"
+	go build -tags $ROUTER -o $ROUTER_NAME
+else
+	printf "$ROUTER_NAME already build, skipping build step\n"
+fi
 done
 printf "Done building all binaries.\n"
 }
@@ -15,16 +25,10 @@ printf "Done building all binaries.\n"
 
 startRouters() {
 printf "Starting all binaries via GNU parallel\n"
-binary_array=()
-for f in main_*
-do
-	ROUTER_NAME=$(echo "$f" | cut -d"_" -f2 | cut -d"." -f1)
-	binary_array+=("$ROUTER_NAME-router")
-done
-
-for ROUTER in "${binary_array[@]}"; do
+for ROUTER in "${routerArray[@]}"; do
+	ROUTER_NAME=$r-router
 	printf "Starting $ROUTER in its own process...\n"
-	parallel -j 50 ::: ./$ROUTER 
+	parallel -j 50 ::: ./$ROUTER_NAME
 done
 }
 
