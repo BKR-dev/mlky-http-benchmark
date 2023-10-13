@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	portStd = "5443"
+	portStd = "5228"
 )
 
 func init() {

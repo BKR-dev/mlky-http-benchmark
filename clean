@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+kill -9 $(lsof -t -i:9000)
+kill -9 $(lsof -t -i:3000)
+kill -9 $(lsof -t -i:5443)
+kill -9 $(lsof -t -i:3443)
+kill -9 $(lsof -t -i:7443)
+kill -9 $(lsof -t -i:8443)
+kill -9 $(lsof -t -i:5228)
