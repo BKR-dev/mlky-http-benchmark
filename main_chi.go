@@ -8,7 +8,6 @@ import (
 	"github.com/arl/statsviz"
 	"github.com/go-chi/chi/v5"
 	"net/http"
-	"time"
 )
 
 var (
@@ -27,7 +26,6 @@ func init() {
 }
 
 func healthCheckEndpointChi(w http.ResponseWriter, r *http.Request) {
-	startTime := time.Now()
 	responseBody := map[string]string{
 		"message": "just some JSON",
 	}
@@ -38,8 +36,6 @@ func healthCheckEndpointChi(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(responseJson)
 
-	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
 }
 
 func startChiServer() {
