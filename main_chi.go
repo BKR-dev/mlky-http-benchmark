@@ -9,7 +9,6 @@ import (
 	"github.com/go-chi/chi/v5"
 	"net/http"
 	"time"
-	"log"
 )
 
 var (
@@ -21,7 +20,8 @@ func init() {
 	statsviz.Register(mux)
 
 	go func() {
-		log.Println(http.ListenAndServe("localhost:8080", mux))
+		fmt.Println("statsviz server chi listening on http://localhost:8080/debug/statsviz/")
+		fmt.Println(http.ListenAndServe("localhost:8080", mux))
 	}()
 	startChiServer()
 }

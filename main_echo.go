@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/labstack/echo/v4"
+	"github.com/arl/statsviz"
 	"net/http"
 	"time"
 )
@@ -15,6 +16,13 @@ var (
 )
 
 func init() {
+	mux := http.NewServeMux()
+	statsviz.Register(mux)
+
+	go func() {
+		fmt.Println("statsviz echo server listening on http://localhost:8081/debug/statsviz/")
+		fmt.Println(http.ListenAndServe("localhost:8081", mux))
+	}()
 	startEchoServer()
 }
 

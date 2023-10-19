@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"time"
+	"github.com/arl/statsviz"
+	"net/http"
 )
 
 var (
@@ -14,6 +16,13 @@ var (
 )
 
 func init() {
+	mux := http.NewServeMux()
+	statsviz.Register(mux)
+
+	go func() {
+		fmt.Println("statsviz fiber server listening on http://localhost:8082/debug/statsviz/")
+		fmt.Println(http.ListenAndServe("localhost:8082", mux))
+	}()
 	StartFiberServer()
 }
 
