@@ -16,6 +16,12 @@ var (
 
 func init() {
 	startEchoServer()
+	mux := http.NewServeMux()
+	statsviz.Register(mux)
+
+	go func() {
+		log.Println(http.ListenAndServe("localhost:8081", mux))
+	}()
 }
 
 func healthCheckEndpointEcho(c echo.Context) error {

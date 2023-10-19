@@ -14,6 +14,12 @@ var (
 )
 
 func init() {
+	mux := http.NewServeMux()
+	statsviz.Register(mux)
+
+	go func() {
+		log.Println(http.ListenAndServe("localhost:8087", mux))
+	}()
 	StartStandardServer()
 }
 
