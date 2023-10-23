@@ -22,9 +22,9 @@ do
 	binary_array+=("$ROUTER_NAME-router")
 done
 
-for ROUTER in "${binary_array[@]}"; do
-	printf "Starting $ROUTER in its own process...\n"
-	parallel -j 50 ::: ./$ROUTER 
+for thing in "${binary_array[@]}"
+do 
+	./${thing} &
 done
 }
 

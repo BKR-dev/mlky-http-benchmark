@@ -5,8 +5,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/arl/statsviz"
 	"net/http"
-	"time"
 )
 
 var (
@@ -14,11 +14,17 @@ var (
 )
 
 func init() {
+	mux := http.NewServeMux()
+	statsviz.Register(mux)
+
+	go func() {
+		fmt.Println("statsviz server standard lib listening on http://localhost:8086/debug/statsviz/")
+		fmt.Println(http.ListenAndServe("localhost:8086", mux))
+	}()
 	StartStandardServer()
 }
 
 func healthCheckEndpointStdLib(w http.ResponseWriter, r *http.Request) {
-	startTime := time.Now()
 	responseBody := map[string]string{
 		"message": "just some JSON",
 	}
@@ -28,9 +34,6 @@ func healthCheckEndpointStdLib(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write(responseJson)
-
-	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
 }
 
 func StartStandardServer() {

@@ -5,9 +5,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/arl/statsviz"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"time"
 )
 
 var (
@@ -15,11 +15,17 @@ var (
 )
 
 func init() {
+	mux := http.NewServeMux()
+	statsviz.Register(mux)
+
+	go func() {
+		fmt.Println("statsviz server gin listening on http://localhost:8083/debug/statsviz/")
+		fmt.Println(http.ListenAndServe("localhost:8083", mux))
+	}()
 	StartGinServer()
 }
 
 func healthCheckEndpointGin(c *gin.Context) {
-	startTime := time.Now()
 	responseBody := map[string]string{
 		"message": "just some JSON",
 	}
@@ -28,8 +34,6 @@ func healthCheckEndpointGin(c *gin.Context) {
 		c.JSON(500, gin.H{"message": "failed to marshal JSON"})
 	}
 	c.JSON(200, gin.H{"message": responseJson})
-	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
 }
 
 func StartGinServer() {

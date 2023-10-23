@@ -5,10 +5,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/arl/statsviz"
 	"github.com/julienschmidt/httprouter"
 	"log"
 	"net/http"
-	"time"
 )
 
 var (
@@ -16,11 +16,17 @@ var (
 )
 
 func init() {
+	mux := http.NewServeMux()
+	statsviz.Register(mux)
+
+	go func() {
+		fmt.Println("statsviz server httprouter listening on http://localhost:8085/debug/statsviz/")
+		fmt.Println(http.ListenAndServe("localhost:8085", mux))
+	}()
 	StartHttprouterServer()
 }
 
 func healthCheck(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	startTime := time.Now()
 	responseBody := map[string]string{
 		"message": "just some JSON",
 	}
@@ -32,13 +38,10 @@ func healthCheck(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 	w.WriteHeader(http.StatusOK)
 	w.Write(responseJson)
-
-	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
 }
 
 func StartHttprouterServer() {
-	fmt.Printf("Httprouter started at port %s, with provided endpoint /healthcheck\n", portHttpRouter)
+	fmt.Printf("Httprouter started at port %s, with provided endpoint /healthCheck\n", portHttpRouter)
 	hr := httprouter.New()
 	hr.GET("/healthcheck", healthCheck)
 	log.Fatal(http.ListenAndServe(":"+portHttpRouter, hr))

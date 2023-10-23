@@ -5,8 +5,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/gofiber/fiber/v2"
 	"github.com/arl/statsviz"
+	"github.com/gofiber/fiber/v2"
 	"net/http"
 )
 
@@ -41,5 +41,5 @@ func StartFiberServer() {
 	})
 	app.Get("/healthcheck", healthCheckEndpointFiber)
 	app.Listen(":" + portFiber)
-	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portFiber)
+	fmt.Printf("Fiber Listens on Port %s with provided endpoint /healthCheck\n", portFiber)
 }

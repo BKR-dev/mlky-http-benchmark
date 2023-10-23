@@ -5,6 +5,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/arl/statsviz"
 	"github.com/gorilla/mux"
 	"net/http"
 	"time"
@@ -15,11 +16,17 @@ var (
 )
 
 func init() {
+	mux := http.NewServeMux()
+	statsviz.Register(mux)
+
+	go func() {
+		fmt.Println("statsviz server gorulla mux listening on http://localhost:8084/debug/statsviz/")
+		fmt.Println(http.ListenAndServe("localhost:8084", mux))
+	}()
 	StartGorillaMuxServer()
 }
 
 func healthCheckEndpointMux(w http.ResponseWriter, r *http.Request) {
-	startTime := time.Now()
 	responseBody := map[string]string{
 		"message": "just some JSON",
 	}
@@ -29,9 +36,6 @@ func healthCheckEndpointMux(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write(responseJson)
-
-	totalTime := time.Since(startTime)
-	fmt.Printf("the route took %s long for the standard lib", totalTime)
 }
 
 func StartGorillaMuxServer() {
@@ -43,6 +47,6 @@ func StartGorillaMuxServer() {
 		WriteTimeout: 5 * time.Second,
 		ReadTimeout:  5 * time.Second,
 	}
-	fmt.Printf("Standard servers Listens on Port %s with provided endpoint /healthCheck\n", portMux)
+	fmt.Printf("Gorilla mux Listens on Port %s with provided endpoint /healthCheck\n", portMux)
 	srv.ListenAndServe()
 }
